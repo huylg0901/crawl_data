@@ -16,7 +16,7 @@ def get_random_user_agent():
 class OpenStreetMap:
     def __init__(self):
         random_user_agent = get_random_user_agent()
-        self.proxies = ["minhnhatnf:EwDTOEJ7eHTC3ie@ip.mproxy.vn:12307"]
+        self.proxies = ["your_proxy"]
         self.current_proxy_index = 0
         self.session = requests.Session()
         self.session.headers.update({
@@ -63,14 +63,14 @@ class OpenStreetMap:
             logging.error(f"Error processing address {address}: {e}")
 
     def main(self):
-        df = pd.read_csv("export_34_row_50000_bace1583-76cc-47a0-b448-ed9777aad2e5.csv")
+        df = pd.read_csv("input.csv")
         df['lat_address'] = np.nan
         df['lon_address'] = np.nan
 
         for i, address in tqdm(enumerate(df['address']), total=len(df), desc="Processing addresses"):
             self.process_address(i, address, df)
 
-        df.to_excel("hochiminh_latlong_34.xlsx", index=False)
+        df.to_excel("output.xlsx", index=False)
 
 if __name__ == '__main__':
     osm = OpenStreetMap()
